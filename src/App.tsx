@@ -1,7 +1,15 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { VictoryBar } from 'victory';
 import './App.css'
+
+const data = [
+  {quarter: 1, earnings: 13000},
+  {quarter: 2, earnings: 16500},
+  {quarter: 3, earnings: 14250},
+  {quarter: 4, earnings: 19000}
+];
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +33,13 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
+      <VictoryBar
+        data={data}
+        // data accessor for x values
+        x="quarter"
+        // data accessor for y values
+        y="earnings"
+      />
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
