@@ -49,12 +49,12 @@ function MultipleInputsExample(props: MultipleInputsProps) {
           <InputGroup.Text>Label & Share </InputGroup.Text>
           <Form.Control
             value={field.label}
-            onChange={(event) => handleChange(index, event, 'label')}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(index, event, 'label')}
             aria-label="Label"
           />
           <Form.Control
             value={field.share}
-            onChange={(event) => handleChange(index, event, 'share')}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => handleChange(index, event, 'share')}
             aria-label="Share"
           />
         </InputGroup>
