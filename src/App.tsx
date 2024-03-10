@@ -1,50 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { VictoryBar } from 'victory';
-import './App.css'
+import React from 'react';
+import { VictoryPie } from 'victory';
+import MultipleInputsExample from './components/InputGroup';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Shares } from './models/Shares';
+import { Button } from 'react-bootstrap';
+
 
 const data = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
+  {label: "Health", share: 20},
+  {label: "School", share: 25},
+  {label: "Streaming", share: 20},
+  {label: "Gaming", share: 20}
 ];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [values, setValues] = React.useState<Shares[]>(data)
+  const [finalValues, setFinalValues] = React.useState<Shares[]>(data)
+  
+  const handleDelField = () => {
+    const newInputFields = [...values];
+    setFinalValues(newInputFields);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ display: 'flex', height: '100vh' }}>
+      <div style={{ flex: '0 0 30%', backgroundColor: '#f0f0f0', padding: '20px' }}>
+        <MultipleInputsExample onInputChange={setValues}></MultipleInputsExample>
+        <Button style={{ marginTop: '10px' }} onClick={handleDelField}>update pie</Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div style={{ flex: '1', backgroundColor: '#fff', height: '50vh' }}>
+        <h1>Share Vision</h1>
+        <VictoryPie
+          data={finalValues}
+          x="label"
+          y="share"
+        />
       </div>
-      <VictoryBar
-        data={data}
-        // data accessor for x values
-        x="quarter"
-        // data accessor for y values
-        y="earnings"
-      />
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );  
 }
 
 export default App
