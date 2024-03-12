@@ -5,10 +5,11 @@ import Button from 'react-bootstrap/Button';
 import { Shares } from '../models/Shares';
 
 const data = [
-  {label: "Health", share: 20},
-  {label: "School", share: 25},
-  {label: "Streaming", share: 20},
-  {label: "Gaming", share: 20}
+  {label: "Life", share: 60},
+  {label: "Saving", share: 10},
+  {label: "Games", share: 5},
+  {label: "Gift", share: 5},
+  {label: "Restaurant", share: 10}
 ];
 
 type MultipleInputsProps = {
@@ -59,8 +60,10 @@ function MultipleInputsExample(props: MultipleInputsProps) {
           />
         </InputGroup>
       ))}
-      <Button onClick={handleAddField}>+</Button>
-      <Button style={{marginLeft: "10px"}} onClick={handleDelField}>-</Button>
+      <div style={{ textAlign: "center" }}>
+        <Button onClick={handleAddField}>+</Button>
+        <Button style={{marginLeft: "10px"}} onClick={handleDelField}>-</Button>
+      </div>
     </div>
   );
 }
