@@ -6,9 +6,9 @@ import { Shares } from '../models/Shares';
 
 const data = [
   {label: "Life", share: 60},
-  {label: "Saving", share: 10},
+  {label: "Saving", share: 20},
   {label: "Gift", share: 5},
-  {label: "Restaurant", share: 10}
+  {label: "Restaurant", share: 15}
 ];
 
 type MultipleInputsProps = {

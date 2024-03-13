@@ -16,15 +16,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const data = [
   {label: "Life", share: 60},
-  {label: "Saving", share: 10},
+  {label: "Saving", share: 20},
   {label: "Gift", share: 5},
-  {label: "Restaurant", share: 10}
+  {label: "Restaurant", share: 15}
 ];
 
 const projectData = [
-  {name: "Saving", goal: 2000, now: 0},
-  {name: "Gift", goal: 2000, now: 0},
-  {name: "Restaurant", goal: 2000, now: 0}
+  {name: "Saving", goal: 2000, now: 200},
+  {name: "Gift", goal: 2000, now: 1200},
+  {name: "Restaurant", goal: 2000, now: 750}
 ]
 
 function App() {
@@ -56,9 +56,21 @@ function App() {
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
       <div style={{ flex: '0 0 30%', backgroundColor: '#f0f0f0', padding: '20px', position: "relative" }}>
+        <h2>Income Division (%)</h2>
         <MultipleInputsExample onInputChange={setValues}></MultipleInputsExample>
         <div style={{ textAlign: "center" }}>
           <Button style={{ marginTop: '10px' }} onClick={handleDelField}>update pie</Button>
+        </div>
+        <div style={{ marginTop: '20px' }}>
+          <h2>Projects future</h2>
+          {projects?.map((project, index) => (
+              <p>
+                {project?.name} will take <strong>{values[index+1].share}%</strong> of income monthly. 
+                For complete it at 100% with <strong> +{(values[index+1].share / 100) * income} monthly </strong> based on your income
+                it'll need <strong>{(project.goal / ((values[index+1].share / 100) * income)).toFixed(2)} months.</strong>
+              </p>
+          )
+          )}
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', height: '50vh', padding: '20px' }}>
@@ -93,7 +105,7 @@ function App() {
           {projects?.map((project) => (
             <Col>
               <h4>{project?.name}</h4>
-              <Cercle name={'test'} goal={project?.goal} now={10}/>
+              <Cercle name={'test'} goal={project?.goal} now={project?.now}/>
             </Col>
           )
           )}
