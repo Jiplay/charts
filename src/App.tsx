@@ -1,26 +1,37 @@
 import React from 'react';
 import { VictoryPie } from 'victory';
-import MultipleInputsExample from './components/InputGroup';
-import Input from './components/Input';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Shares } from './models/Shares';
 import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import MultipleInputsExample from './components/InputGroup';
+import Input from './components/Input';
+import { Shares } from './models/Shares';
+import Cercle from './components/CircularProgressBar';
+import { Project } from './models/Project';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 const data = [
   {label: "Life", share: 60},
   {label: "Saving", share: 10},
-  {label: "Games", share: 5},
   {label: "Gift", share: 5},
   {label: "Restaurant", share: 10}
 ];
+
+const pro = {
+  name: "julien",
+  goal: 100,
+  now: 10
+}
 
 function App() {
   const [values, setValues] = React.useState<Shares[]>(data)
   const [income, setIncome] = React.useState<number>(2000)
   const [finalValues, setFinalValues] = React.useState<Shares[]>(data)
+  const [tets, settet] = React.useState<Project>(pro)
   
   const handleDelField = () => {
     const newInputFields = [...values];
@@ -41,14 +52,14 @@ function App() {
           <Col >
             <h2>Saving Vision</h2>
           </Col>
-          <Col xs={6} style={{ marginLeft: "20px" }}>
+          <Col xs={6} style={{ }}>
             <VictoryPie
               data={finalValues}
               x="label"
               y="share"
               colorScale={["#FF5733", "#FFC300", "#DAF7A6", "#9AECDB", "#C70039"]}
-              width={400}
-              height={400}
+              width={350}
+              height={350}
             />
             </Col>
             <Col>
@@ -59,25 +70,20 @@ function App() {
             </Col>
         </Row>
         <Row>
-          <Col>1 of 3</Col>
-          <Col xs={5}>2 of 3 (wider)</Col>
-          <Col>3 of 3</Col>
+          <Col>
+            <p>Project 1 : Car</p>
+            <Cercle name={'test'} goal={100} now={100}/>
+          </Col>
+          <Col xs={5}>
+            <p>Project 2</p>
+            <Cercle name={''} goal={0} now={0}/>
+          </Col>
+          <Col>
+            <p>Project 3</p>
+            <Cercle name={''} goal={0} now={0}/>
+          </Col>
         </Row>
-    </Container>
-        
-        {/* <div style={{ marginBottom: '20px'}}>
-          <h1>Saving Vision</h1>
-        </div>
-        <div style={{}}>
-          <VictoryPie
-            data={finalValues}
-            x="label"
-            y="share"
-            colorScale={["#FF5733", "#FFC300", "#DAF7A6", "#9AECDB", "#C70039"]}
-            width={400}
-            height={400}
-          />
-        </div> */}
+      </Container>
       </div>
     </div>
   );  
