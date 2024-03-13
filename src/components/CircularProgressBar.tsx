@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory';
 import { Project } from '../models/Project';
 
@@ -31,6 +31,20 @@ class Cercle extends Component<Project, CercleState> {
     // }, 2000);
   }
 
+  componentDidUpdate(prevProps: Project) {
+    if (prevProps.goal !== this.props.goal) {
+      this.updateData();
+    }
+  }
+
+  updateData() {
+    const percent = (this.props.now / this.props.goal) * 100;
+    this.setState({
+      percent,
+      data: this.getData(percent),
+    });
+  }
+
   componentWillUnmount() {
     // window.clearInterval(this.setStateInterval);
   }
@@ -42,6 +56,7 @@ class Cercle extends Component<Project, CercleState> {
   render() {
     return (
       <div>
+        <p>{this.props.goal}</p>
         <svg viewBox="0 0 400 400" width="100%" height="100%">
           <VictoryPie
             standalone={false}
@@ -61,7 +76,7 @@ class Cercle extends Component<Project, CercleState> {
               },
             }}
           />
-          <VictoryAnimation duration={1000} data={this.state}>
+          <VictoryAnimation duration={1000} data={{ percent: this.state.percent }}>
             {(newProps) => {
               return (
                 <VictoryLabel
@@ -69,7 +84,7 @@ class Cercle extends Component<Project, CercleState> {
                   verticalAnchor="middle"
                   x={200}
                   y={200}
-                  text={`${Math.round(newProps.percent)}%`}
+                  text={`${Math.round(Number(newProps.percent))}%`}
                   style={{ fontSize: 45 }}
                 />
               );

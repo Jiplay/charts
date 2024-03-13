@@ -21,22 +21,51 @@ const data = [
   {label: "Restaurant", share: 10}
 ];
 
-const pro = {
-  name: "julien",
-  goal: 100,
-  now: 10
-}
+const projectData = [
+  {name: "Saving", goal: 2000, now: 0},
+  {name: "Gift", goal: 2000, now: 0},
+  {name: "Restaurant", goal: 2000, now: 0}
+]
 
 function App() {
   const [values, setValues] = React.useState<Shares[]>(data)
   const [income, setIncome] = React.useState<number>(2000)
   const [finalValues, setFinalValues] = React.useState<Shares[]>(data)
-  const [tets, settet] = React.useState<Project>(pro)
+  const [projects, setProjects] = React.useState<Project[]>(projectData)
   
   const handleDelField = () => {
     const newInputFields = [...values];
     setFinalValues(newInputFields);
   };
+
+  const handleChange = (goal: number, share?: Shares) => {
+    const updatedProjects = projects?.map((existingProject) => {
+      if (existingProject.name === share?.label) {
+        // Replace the existing project with the updated one
+        return {
+          ...existingProject,
+          goal: goal,
+          now: 0,
+        };
+      } else {
+        // Keep the existing project as it is
+        return existingProject;
+      }
+    });
+    setProjects(updatedProjects)
+
+    // if (share !== undefined) {
+    //   const project = {
+    //     name: share.label,
+    //     goal: goal,
+    //     now: 0,
+    //   }
+    //   const newProjects = [...project]
+    //   setProjects(newProjects);
+    // } else {
+    //   console.error("not implemented")
+    // }
+  }
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
@@ -65,13 +94,30 @@ function App() {
             <Col>
               <div>Income details {income}</div>
               <div style={{ marginTop: '10px' }}>
-            <Input onInputChange={setIncome}></Input>
+            <Input placeholder={"Income"}onInputChange={setIncome}></Input>
+            <div style={{marginTop: '10px'}}>Project Goals details {income}</div>
+            {finalValues.map((share, index) => (
+              index !== 0 &&
+              <Input onInputChange={handleChange} share={share} placeholder={share.label}></Input>
+            ))}
+
           </div>
             </Col>
         </Row>
         <Row>
-          <Col>
-            <p>Project 1 : Car</p>
+
+          {projects?.map((project) => (
+            <Col>
+              <p>{project?.name}, {project?.goal}</p>
+              <Cercle name={'test'} goal={project?.goal} now={10}/>
+            </Col>
+          )
+          
+          
+          )}
+
+          {/* <Col>
+            <p>{projects?.name}</p>
             <Cercle name={'test'} goal={100} now={100}/>
           </Col>
           <Col xs={5}>
@@ -81,7 +127,7 @@ function App() {
           <Col>
             <p>Project 3</p>
             <Cercle name={''} goal={0} now={0}/>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
       </div>
