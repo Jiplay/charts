@@ -9,7 +9,6 @@ interface CercleState {
 }
 
 class Cercle extends Component<Project, CercleState> {
-  // private setStateInterval: any;
 
   constructor(props: Project) {
     super(props);
@@ -21,14 +20,12 @@ class Cercle extends Component<Project, CercleState> {
 
   componentDidMount() {
     let percent = 0;
-    // this.setStateInterval = window.setInterval(() => {
       percent += (this.props.now / this.props.goal) * 100;
       percent = percent > 100 ? 0 : percent;
       this.setState({
         percent,
         data: this.getData(percent),
       });
-    // }, 2000);
   }
 
   componentDidUpdate(prevProps: Project) {
@@ -45,10 +42,6 @@ class Cercle extends Component<Project, CercleState> {
     });
   }
 
-  componentWillUnmount() {
-    // window.clearInterval(this.setStateInterval);
-  }
-
   getData(percent: number) {
     return [{ x: 1, y: percent }, { x: 2, y: 100 - percent }];
   }
@@ -56,7 +49,6 @@ class Cercle extends Component<Project, CercleState> {
   render() {
     return (
       <div>
-        <p>{this.props.goal}</p>
         <svg viewBox="0 0 400 400" width="100%" height="100%">
           <VictoryPie
             standalone={false}

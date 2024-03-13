@@ -41,30 +41,16 @@ function App() {
   const handleChange = (goal: number, share?: Shares) => {
     const updatedProjects = projects?.map((existingProject) => {
       if (existingProject.name === share?.label) {
-        // Replace the existing project with the updated one
         return {
           ...existingProject,
           goal: goal,
           now: 0,
         };
       } else {
-        // Keep the existing project as it is
         return existingProject;
       }
     });
     setProjects(updatedProjects)
-
-    // if (share !== undefined) {
-    //   const project = {
-    //     name: share.label,
-    //     goal: goal,
-    //     now: 0,
-    //   }
-    //   const newProjects = [...project]
-    //   setProjects(newProjects);
-    // } else {
-    //   console.error("not implemented")
-    // }
   }
 
   return (
@@ -100,34 +86,17 @@ function App() {
               index !== 0 &&
               <Input onInputChange={handleChange} share={share} placeholder={share.label}></Input>
             ))}
-
           </div>
             </Col>
         </Row>
         <Row>
-
           {projects?.map((project) => (
             <Col>
-              <p>{project?.name}, {project?.goal}</p>
+              <h4>{project?.name}</h4>
               <Cercle name={'test'} goal={project?.goal} now={10}/>
             </Col>
           )
-          
-          
           )}
-
-          {/* <Col>
-            <p>{projects?.name}</p>
-            <Cercle name={'test'} goal={100} now={100}/>
-          </Col>
-          <Col xs={5}>
-            <p>Project 2</p>
-            <Cercle name={''} goal={0} now={0}/>
-          </Col>
-          <Col>
-            <p>Project 3</p>
-            <Cercle name={''} goal={0} now={0}/>
-          </Col> */}
         </Row>
       </Container>
       </div>
